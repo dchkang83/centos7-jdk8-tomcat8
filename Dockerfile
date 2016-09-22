@@ -19,16 +19,18 @@ RUN	yum install wget -y
 
 RUN	wget "http://mirror.apache-kr.org/tomcat/tomcat-8/v8.5.5/bin/apache-tomcat-8.5.5.tar.gz" \
 	&& tar xzvf ./apache-tomcat-8.5.5.tar.gz \
-		&& rm ./apache-tomcat-8.5.5.tar.gz \
-			&& mv ./apache-tomcat-8.5.5 /opt/apache-tomcat-8.5.5 \
-				&& ln -s /opt/apache-tomcat-8.5.5 /usr/local/tomcat
-				ENV CATALINA_HOME /usr/local/tomcat
+	&& rm ./apache-tomcat-8.5.5.tar.gz \
+	&& mv ./apache-tomcat-8.5.5 /opt/apache-tomcat-8.5.5 \
+	&& ln -s /opt/apache-tomcat-8.5.5 /usr/local/tomcat
+	ENV CATALINA_HOME /usr/local/tomcat
 
-				# sh 적용
-				COPY entrypoint.sh /
-				#ADD entrypoint.sh /entrypoint.sh
-				#RUN chmod +x /entrypoint.sh
+	# sh 적용
+	COPY entrypoint.sh /
+	RUN chmod +x /entrypoint.sh
 
-				EXPOSE 8080 8009
-				#VOLUME ["/tomcat/webapps", "/tomcat/logs"]
-				CMD ["/entrypoint.sh"]
+	#ADD entrypoint.sh /entrypoint.sh
+	#RUN chmod +x /entrypoint.sh
+
+	EXPOSE 8080 8009
+	#VOLUME ["/tomcat/webapps", "/tomcat/logs"]
+	CMD ["/entrypoint.sh"]
